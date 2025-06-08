@@ -1,11 +1,10 @@
-# EDGAR EPS Parser
+# EPS Parser - EDGAR SEC Filings
+
+This project parses EPS (Earnings Per Share) values from 8-K filings provided by the SEC’s EDGAR database. It extracts the most recent quarterly EPS for each filing and outputs the results in a CSV file.
 
 ## Overview
 
-This project addresses parsing and extracting quarterly Earnings Per Share (EPS) data from HTML based financial reports from the SEC's EDGAR database. The parser is designed to reliably extract Basic EPS values from a wide variety of document formats.
-
-
----
+The EDGAR database contains complex, inconsistently formatted financial documents. To accurately extract EPS data, this parser leverages Google’s Gemini large language model (LLM), which is better at understanding and interpreting human like text patterns compared to traditional regex based methods.
 
 ## Project Objectives
 
@@ -32,7 +31,7 @@ This project uses a **two-stage hybrid parsing system**:
   - Reasonable value bounds
 
 ### 2. AI-Powered Fallback (LLM with Google Gemini)
-If the confidence score from the traditional method falls below a defined threshold (default `0.6`), the system uses an **LLM** (Gemini) to extract EPS from the text. Gemini 2.0 offers free API keys.
+If the confidence score from the traditional method falls below a defined threshold (default `0.6`), the system uses an **LLM** (Gemini) to extract EPS from the text. Google offers free Gemini 2.0 API keys. You can create one using the following url https://aistudio.google.com/app/apikey.
 
 #### Why LLMs?
 LLMs excel at understanding and interpreting language, especially **human written financial language**, which is often ambiguous or irregular. They offer a semantic understanding that rule based systems lack, making them ideal for extracting structured data from unstructured filings.
@@ -55,13 +54,15 @@ The parser outputs a CSV file with the following fields:
 
 ## How to Run
 
+- Clone this repository
 - Place your .html filings inside the filings/ directory.
+- Input your Gemini API Key.
 - Run the script: python parser.py
 - Output will be saved to output/eps_output.csv
 
 ## Requirements
 
-- pip install beautifulsoup4 lxml google-genai
+- pip install beautifulsoup4 lxml google-genai python- dotenv
 
 
 ## Notes
@@ -69,4 +70,5 @@ The parser outputs a CSV file with the following fields:
 - EPS values over 100 or suspicious round values are penalized in confidence scoring.
 - The LLM is only triggered when traditional parsing yields low confidence.
     - Only information that is believed to be relevant is fed into the LLM, in order to minimize token use.
--  I included my own personal Gemini API Key so you do not have to provide your own. I understand it is bad security practice, but this is purely for demonstration.
+- A few sample EDGAR Filings are provided, more can be found here https://www.sec.gov/search-filings
+- It is best to store your Gemini API key as an environment variable.
