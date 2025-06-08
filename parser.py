@@ -1,10 +1,13 @@
 import os
+from dotenv import load_dotenv
 import re
 import csv
 from bs4 import BeautifulSoup
 from google import genai
 from google.genai import types
 from typing import Optional, Tuple, List
+
+load_dotenv()  # Load environment variables from .env file
 
 
 class EPSParser:
@@ -272,8 +275,7 @@ def main():
     input_dir = "filings"
     output_csv = "output/eps_output.csv"
     
-    api_key = "AIzaSyDeioKfJ3kbc1g2Z535CqLtFMjZ0xCiLSs"
-    # Gemini API key should be set as an environment variable or securely managed, but it is provided here for demonstration purposes for this assesment.
+    api_key = os.getenv("GEMINI_API_KEY")
     threshold = 0.6
 
     eps_parser = EPSParser(api_key)
