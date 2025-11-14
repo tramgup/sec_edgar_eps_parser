@@ -24,7 +24,7 @@ This project uses a **two-stage hybrid parsing system**:
 - **HTML table analysis** to detect structured financial tables
 - **Regex scanning** for lines referencing EPS, GAAP/Non-GAAP terminology
 - **Number normalization** to correctly interpret formats like `(1.23)` -> `-1.23`
-- **Context aware confidence scoring** based on:
+- **Context aware scoring** based on:
   - Presence of keywords
   - Table structure
   - Value consistency
