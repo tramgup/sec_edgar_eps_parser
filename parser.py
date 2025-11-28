@@ -251,23 +251,40 @@ class EPSParser:
         return eps_traditional
 
     def process_directory(self, input_dir: str, output_csv: str, confidence_threshold: float = 0.6):
-        # Processes html files and writes results to a CSV file.
+        # Processes html files, writes results to a CSV file, and also returns result for frontend
+
+        results = []
 
         html_files = sorted([f for f in os.listdir(input_dir) if f.lower().endswith('.html')])
         os.makedirs(os.path.dirname(output_csv), exist_ok=True)
         with open(output_csv, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(["filename", "EPS"])
+
             for filename in html_files:
                 print(f"\nProcessing {filename}...")
                 path = os.path.join(input_dir, filename)
                 eps = self.parse_eps_from_html(path, confidence_threshold)
+
                 if eps is not None:
                     writer.writerow([filename, f"{eps:.2f}"])
                     print(f"{filename}: {eps:.2f}")
+
+                    #append to results list for frontend
+                    results.append({
+                        "filename": filename,
+                        "eps": round(eps, 2)
+                    })
                 else:
                     writer.writerow([filename, ""])
                     print(f"{filename}: not found")
+
+                    results.append({
+                        "filename": filename,
+                        "eps": None
+                    })
+
+            return results
 
 
 def main():
@@ -279,8 +296,7 @@ def main():
     threshold = 0.6
 
     eps_parser = EPSParser(api_key)
-    eps_parser.process_directory(input_dir, output_csv, threshold)
-
+    results = eps_parser.process_directory(input_dir, output_csv, threshold)
 
 if __name__ == "__main__":
     main()
