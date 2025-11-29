@@ -19,6 +19,17 @@ def upload_file():
     uploaded_file_paths = []
 
     for file in files:
+        filename = file.filename.lower()
+        
+        #validating only .html can be sent
+        if not filename.endswith("html"):
+            return jsonify({"ok": False, "error": f"Invalid file type: {filename}. Only .html allowed."}), 400
+        
+        # checking MIME type, more secure
+        if file.mimetype not in ["text/html"]:
+            return jsonify({"ok": False, "error": f"Invalid MIME type for {filename}"}), 400
+
+ 
         file_path = os.path.join(temp_dir, file.filename)
         file.save(file_path)
         uploaded_file_paths.append(file_path)

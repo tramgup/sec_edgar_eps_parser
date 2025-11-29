@@ -39,7 +39,7 @@ export default function App() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>File Upload UI</h1>
-      <input type="file" multiple onChange={handleFileChange} />
+      <input type="file" accept=".html" multiple onChange={handleFileChange} />
       <button onClick={handleSubmit} disabled={loading} style={{ marginLeft: "1rem" }}>
         {loading ? "Uploading..." : "Upload"}
       </button>
