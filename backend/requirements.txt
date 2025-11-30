@@ -2,4 +2,4 @@ beautifulsoup4
 lxml
 google-genai
 python-dotenv
-flask-flask-cors
+flask-cors
