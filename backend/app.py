@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from parser import parsing
+from backend.parser import parsing
 import os
 import tempfile
 
