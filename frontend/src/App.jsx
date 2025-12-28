@@ -37,74 +37,118 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>File Upload UI</h1>
-      <input type="file" accept=".html" multiple onChange={handleFileChange} />
-      <button onClick={handleSubmit} disabled={loading} style={{ marginLeft: "1rem" }}>
-        {loading ? "Uploading..." : "Upload"}
-      </button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <header className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            EPS File Analyzer
+          </h1>
+          <p className="text-gray-600">
+            Upload HTML files to extract and analyze EPS data
+          </p>
+        </header>
 
-      {result && result.ok && (
-        <div style={{ marginTop: "2rem" }}>
-          <h2>Results</h2>
-          <table style={{ 
-            width: "100%", 
-            borderCollapse: "collapse",
-            marginTop: "1rem",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
-          }}>
-            <thead>
-              <tr style={{ backgroundColor: "#4F46E5", color: "white" }}>
-                <th style={{ padding: "12px", textAlign: "left", borderBottom: "2px solid #ddd" }}>
-                  Filename
-                </th>
-                <th style={{ padding: "12px", textAlign: "right", borderBottom: "2px solid #ddd" }}>
-                  EPS
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {result.result.map((item, index) => (
-                <tr 
-                  key={index}
-                  style={{ 
-                    backgroundColor: index % 2 === 0 ? "#F9FAFB" : "white",
-                    transition: "background-color 0.2s"
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#E0E7FF"}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = index % 2 === 0 ? "#F9FAFB" : "white"}
-                >
-                  <td style={{ padding: "12px", borderBottom: "1px solid #E5E7EB" }}>
-                    {item.filename}
-                  </td>
-                  <td style={{ 
-                    padding: "12px", 
-                    textAlign: "right", 
-                    borderBottom: "1px solid #E5E7EB",
-                    color: item.eps >= 0 ? "#059669" : "#DC2626",
-                    fontWeight: "600"
-                  }}>
-                    {item.eps.toFixed(2)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+            <input
+              type="file"
+              accept=".html"
+              multiple
+              onChange={handleFileChange}
+              className="flex-1 text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 cursor-pointer"
+            />
+            <button
+              onClick={handleSubmit}
+              disabled={loading || files.length === 0}
+              className="px-6 py-2 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? "Uploading..." : "Upload"}
+            </button>
+          </div>
+          {files.length > 0 && (
+            <p className="mt-4 text-sm text-gray-600">
+              {files.length} file{files.length > 1 ? "s" : ""} selected
+            </p>
+          )}
         </div>
-      )}
 
-      {result && !result.ok && (
-        <div style={{ 
-          marginTop: "2rem", 
-          padding: "1rem", 
-          backgroundColor: "#FEE2E2", 
-          border: "1px solid #DC2626",
-          borderRadius: "4px",
-          color: "#991B1B"
-        }}>
-          <strong>Error:</strong> {result.error}
+        {result && result.ok && (
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div className="px-6 py-4 bg-indigo-600 text-white">
+              <h2 className="text-xl font-semibold">Results</h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-100 border-b border-gray-200">
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                      Filename
+                    </th>
+                    <th className="px-6 py-3 text-right text-sm font-semibold text-gray-700">
+                      EPS
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.result.map((item, index) => (
+                    <tr
+                      key={index}
+                      className="border-b border-gray-100 hover:bg-indigo-50 transition-colors"
+                    >
+                      <td className="px-6 py-4 text-sm text-gray-900">
+                        {item.filename}
+                      </td>
+                      <td
+                        className={`px-6 py-4 text-sm font-semibold text-right ${
+                          item.eps >= 0 ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {item.eps.toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        {result && !result.ok && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">Error</h3>
+                <p className="mt-1 text-sm text-red-700">{result.error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-12 bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            Need 8-K Filings?
+          </h2>
+          <p className="text-gray-600 mb-4">
+            You can download 8-K filings from the SEC EDGAR database to use with this analyzer.
+          </p>
+          <a
+            href="https://www.sec.gov/search-filings"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-md hover:bg-gray-200 transition-colors"
+          >
+            Visit SEC EDGAR Database
+            <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
         </div>
-      )}
       </div>
+    </div>
   );
 }
