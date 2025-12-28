@@ -193,7 +193,7 @@ class EPSParser:
             """
             print("Calling Gemini API...")
             response = self.client.models.generate_content(
-                model="gemini-2.0-flash",
+                model="gemini-2.5-flash-lite",
                 config=types.GenerateContentConfig(
                     system_instruction="You are a financial document analyst. Extract earnings per share data accurately from SEC filings."
                 ),
