@@ -287,10 +287,9 @@ class EPSParser:
             return results
 
 
-def parsing(file_path):
+def parsing(file_path, output_csv):
     # Configuration - update these paths and your Gemini API key below
     input_dir = file_path
-    output_csv = "output/eps_output.csv"
     
     api_key = os.getenv("GEMINI_API_KEY")
     threshold = 0.6

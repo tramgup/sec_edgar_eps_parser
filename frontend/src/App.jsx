@@ -4,6 +4,7 @@ export default function App() {
   const [files, setFiles] = useState([]);
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
 
   function handleFileChange(event) {
     setFiles(event.target.files);
@@ -21,13 +22,18 @@ export default function App() {
     setResult(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/api/upload", {
+      const response = await fetch("http://127.0.0.1:5050/api/upload", {
         method: "POST",
         body: formData,
       });
 
       const data = await response.json();
       setResult(data);
+
+      if (data.ok && data.session_id) {
+        setSessionId(data.session_id)
+      }
+
     } catch (err) {
       console.error(err);
       setResult({ ok: false, error: "Something went wrong" });
@@ -41,10 +47,10 @@ export default function App() {
       <div className="max-w-4xl mx-auto px-4 py-12">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            EPS File Analyzer
+            SEC EDGAR System Earnings Per Share File Analyzer
           </h1>
           <p className="text-gray-600">
-            Upload HTML files to extract and analyze EPS data
+            Upload HTML files of 8-K filese to extract and analyze earnings per share "EPS" data
           </p>
         </header>
 
@@ -76,6 +82,14 @@ export default function App() {
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="px-6 py-4 bg-indigo-600 text-white">
               <h2 className="text-xl font-semibold">Results</h2>
+              {sessionId && ( <a
+                href={`http://127.0.0.1:5050/api/download/${sessionId}`}
+                download
+                className="px-4 py-2 bg-white text-indigo-600 font-medium rounded-md hover:bg-gray-100 transition-colors text-sm"
+              >
+                Download CSV
+              </a>
+              )}
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
