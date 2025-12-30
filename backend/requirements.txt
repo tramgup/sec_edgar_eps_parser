@@ -1,5 +1,7 @@
+flask
+flask-cors
+flask-limiter
+python-dotenv
 beautifulsoup4
 lxml
 google-genai
-python-dotenv
-flask-cors
