@@ -74,3 +74,4 @@ The parser outputs a CSV file with the following fields:
 - EPS values over 100 or suspicious round values are penalized in confidence scoring.
 - The LLM is only triggered when traditional parsing yields low confidence.
     - Only information that is believed to be relevant is fed into the LLM, in order to minimize token use.
+- Use these values at your own risk. From my own personal experience, this system is accurate more than 95% of the time. Feel free to edit the parser file to fit your own personal needs.
