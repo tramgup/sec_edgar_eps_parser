@@ -64,7 +64,8 @@ def upload_file():
     # Store session info
     sessions[session_id] = {
         "output_csv": output_csv,
-        "temp_dir": temp_dir
+        "temp_dir": temp_dir,
+        "created_at": time.time()
     }
 
     # Call parser on the folder
