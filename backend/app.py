@@ -46,7 +46,7 @@ def upload_file():
         filename = file.filename.lower()
         
         #validating only .html can be sent
-        if not filename.endswith("html"):
+        if not filename.endswith("html") or not filename.endswith("htm"):
             return jsonify({"ok": False, "error": f"Invalid file type: {filename}. Only .html allowed."}), 400
         
         # checking MIME type, more secure

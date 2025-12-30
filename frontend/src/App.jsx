@@ -52,7 +52,7 @@ export default function App() {
             SEC EDGAR System Earnings Per Share File Analyzer
           </h1>
           <p className="text-gray-600">
-            Upload HTML files of 8-K filese to extract and analyze earnings per share "EPS" data
+            Upload HTML files of 8-K/10-K files to extract and analyze basic earnings per share "EPS" data
           </p>
         </header>
 
