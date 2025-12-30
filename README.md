@@ -55,6 +55,9 @@ The parser outputs a CSV file with the following fields:
 
 ## How to Run
 
+- This app is hosted online via Railway and can be accessed using this address https://sec-parser.up.railway.app/
+
+#### If you wish to run this locally follow the steps below
 - Run both the frontend and backend. Frontend: npm run dev  Backend: python3 app.py
 - Use the interactive UI to select which .html files you wish to upload.
 - Outputs will be displayed in a table format and an option to download your results in a csv format.
