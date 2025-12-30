@@ -60,12 +60,13 @@ The parser outputs a CSV file with the following fields:
 
 #### If you wish to run this locally follow the steps below
 - Run both the frontend and backend. Frontend: npm run dev  Backend: python3 app.py
+- Be sure to upload your own personal Gemini API key and configure the model you wish to use.
 - Use the interactive UI to select which .html files you wish to upload.
 - Outputs will be displayed in a table format and an option to download your results in a csv format.
 
 ## Requirements
 
-- pip install beautifulsoup4 lxml google-genai
+- pip install -r requirements.txt
 
 
 ## Notes
