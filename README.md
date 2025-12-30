@@ -73,4 +73,3 @@ The parser outputs a CSV file with the following fields:
 - EPS values over 100 or suspicious round values are penalized in confidence scoring.
 - The LLM is only triggered when traditional parsing yields low confidence.
     - Only information that is believed to be relevant is fed into the LLM, in order to minimize token use.
--  I included my own personal Gemini API Key so you do not have to provide your own. I understand it is bad security practice, but this is purely for demonstration.
