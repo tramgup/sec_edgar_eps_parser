@@ -6,6 +6,8 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL
+
   function handleFileChange(event) {
     setFiles(event.target.files);
   }
@@ -22,7 +24,7 @@ export default function App() {
     setResult(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5050/api/upload", {
+      const response = await fetch(`${API_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -83,7 +85,7 @@ export default function App() {
             <div className="px-6 py-4 bg-indigo-600 text-white">
               <h2 className="text-xl font-semibold">Results</h2>
               {sessionId && ( <a
-                href={`http://127.0.0.1:5050/api/download/${sessionId}`}
+                href={`${API_URL}/api/download/${sessionId}`}
                 download
                 className="px-4 py-2 bg-white text-indigo-600 font-medium rounded-md hover:bg-gray-100 transition-colors text-sm"
               >
