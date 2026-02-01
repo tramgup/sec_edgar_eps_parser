@@ -13,7 +13,8 @@ import time
 
 
 app = Flask(__name__)
-CORS(app, origins=[os.environ['FRONTEND_PUBLIC_DOMAIN']])
+frontend_domain = os.environ.get("FRONTEND_PUBLIC_DOMAIN", "http://localhost:5173")
+CORS(app, origins=[frontend_domain])
 
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024 #50MB max upload
 
