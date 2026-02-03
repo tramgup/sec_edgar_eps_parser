@@ -55,7 +55,7 @@ The parser outputs a CSV file with the following fields:
 
 ## How to Run
 
-- This app is hosted online via Railway and can be accessed using this address https://sec-parser.up.railway.app/
+- This app is hosted online via Railway and can be accessed using this address https://eps-parser.netlify.app/
 - You can download SEC 8-K/10-K fillings via the Edgar database using this link https://www.sec.gov/search-filings
 
 #### If you wish to run this locally follow the steps below
